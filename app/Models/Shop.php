@@ -41,7 +41,6 @@ class Shop extends Model
     protected $fillable =
         [
             'name',
-            'slug',
             'latitude',
             'longitude',
             'open',
