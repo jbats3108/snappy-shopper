@@ -1,18 +1,24 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Http\Controllers\Shop;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Testing\TestResponse;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class CreateShopControllerTest extends TestCase
 {
+    use RefreshDatabase;
+
     #[Test] public function it_requires_a_shop_name()
     {
         // Given
         $request =
             [
-                'latitude' => '12345',
+                'latitude' => 12345,
                 'longitude' => '5678',
                 'open' => true,
                 'type' => 'shop',
@@ -20,7 +26,7 @@ class CreateShopControllerTest extends TestCase
             ];
 
         // When
-        $response = $this->postJson(route('shop.create'), $request);
+        $response = $this->sendRequest($request);
 
         // Then
         $response->assertUnprocessable();
@@ -51,7 +57,7 @@ class CreateShopControllerTest extends TestCase
             ];
 
         // When
-        $response = $this->postJson(route('shop.create'), $request);
+        $response = $this->sendRequest($request);
 
         // Then
         $response->assertUnprocessable();
@@ -82,7 +88,7 @@ class CreateShopControllerTest extends TestCase
 
 
         // When
-        $response = $this->postJson(route('shop.create'), $request);
+        $response = $this->sendRequest($request);
 
         // Then
         $response->assertUnprocessable();
@@ -115,7 +121,7 @@ class CreateShopControllerTest extends TestCase
 
 
         // When
-        $response = $this->postJson(route('shop.create'), $request);
+        $response = $this->sendRequest($request);
 
         // Then
         $response->assertUnprocessable();
@@ -146,7 +152,7 @@ class CreateShopControllerTest extends TestCase
 
 
         // When
-        $response = $this->postJson(route('shop.create'), $request);
+        $response = $this->sendRequest($request);
 
         // Then
         $response->assertUnprocessable();
@@ -176,7 +182,7 @@ class CreateShopControllerTest extends TestCase
             ];
 
         // When
-        $response = $this->postJson(route('shop.create'), $request);
+        $response = $this->sendRequest($request);
 
         // Then
         $response->assertUnprocessable();
@@ -192,5 +198,32 @@ class CreateShopControllerTest extends TestCase
                 'type',
             ]
         );
+    }
+
+    #[Test] public function it_creates_a_new_shop()
+    {
+        // Given
+        $request =
+            [
+                'name' => 'New Shop',
+                'latitude' => 123.45,
+                'longitude' => 56.78,
+                'open' => true,
+                'type' => 'shop',
+                'max_delivery_distance' => 12.5
+            ];
+
+        // When
+        $response = $this->sendRequest($request);
+
+        // Then
+        $response->assertCreated();
+
+        $this->assertDatabaseHas('shops', $request  );
+    }
+
+    public function sendRequest(array $request): TestResponse
+    {
+        return $this->postJson(route('shop.create'), $request);
     }
 }
