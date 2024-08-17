@@ -37,7 +37,8 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Shop whereOpen($value)
  * @method static Builder|Shop whereSlug($value)
  * @method static Builder|Shop whereUpdatedAt($value)
- * @method Builder distanceFrom()
+ * @method Builder distanceFrom(Postcode $postcode)
+ * @method Builder withinDistanceFromPostcode(Postcode $postcode, float $distance)
  * @mixin Eloquent
  */
 class Shop extends Model
@@ -53,6 +54,12 @@ class Shop extends Model
             'type',
             'max_delivery_distance'
         ];
+
+    public function scopeWithinDistanceFromPostcode(Builder $query, Postcode $postcode, float $distance): Builder
+    {
+        return self::distanceFrom($postcode)
+            ->having('distance', '<=', $distance);
+    }
 
     public function scopeDistanceFrom(Builder $query, Postcode $to): Builder
     {

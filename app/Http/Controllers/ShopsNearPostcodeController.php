@@ -16,10 +16,7 @@ class ShopsNearPostcodeController extends Controller
         $distance = $request->distance;
         $postcode = Postcode::firstWhere('postcode', $request->postcode);
 
-        $shopsWithinDistance = Shop::distanceFrom($postcode)
-            ->having('distance', '<=', $distance)
-            ->orderBy('distance')
-            ->get();
+        $shopsWithinDistance = Shop::withinDistanceFromPostcode($postcode, $distance);
 
         return response()->json($shopsWithinDistance);
     }

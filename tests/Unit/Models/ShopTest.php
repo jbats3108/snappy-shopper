@@ -31,4 +31,25 @@ class ShopTest extends TestCase
 
         $this->assertCount(3, $distances);
     }
+
+    #[Test] public function it_finds_all_shops_within_a_given_distance_from_a_postcode()
+    {
+        // Given
+        $this->seed();
+
+        $postcode = Postcode::first();
+
+        /*
+         * Setting a high distance to account for the wide distribution of coordinates in the seeded Shops
+         */
+        $searchDistance = 150;
+
+        // When
+        $results = Shop::withinDistanceFromPostcode($postcode, $searchDistance)->get();
+
+        // Then
+        $distances = $results->pluck('distance');
+
+        $distances->each(fn(float $distance) => $this->assertLessThan($searchDistance, $distance));
+    }
 }

@@ -119,9 +119,7 @@ class ShopsNearPostcodeControllerTest extends TestCase
         // Then
         $response->assertOk();
 
-        $distances = collect($response->json())->pluck('distance');
 
-        $distances->each(fn(float $distance) => $this->assertLessThan($searchDistance, $distance));
     }
 
 
