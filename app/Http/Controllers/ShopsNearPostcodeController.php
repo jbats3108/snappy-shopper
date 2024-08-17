@@ -1,8 +1,9 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Data\ShopsNearPostcodeData;
+use App\DataTransferObjects\ShopsNearPostcodeData;
 use App\Models\Postcode;
 use App\Models\Shop;
 

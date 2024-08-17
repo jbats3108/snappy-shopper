@@ -1,6 +1,7 @@
 <?php
+declare(strict_types=1);
 
-namespace App\Data;
+namespace App\DataTransferObjects;
 
 use Spatie\LaravelData\Attributes\Validation\Exists;
 use Spatie\LaravelData\Data;
