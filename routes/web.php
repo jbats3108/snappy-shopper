@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\CreateShopController;
-use App\Http\Controllers\ShopsNearPostcodeController;
+
+use App\Http\Controllers\Shop\CreateController;
+use App\Http\Controllers\Shops\NearPostcodeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -10,8 +11,8 @@ Route::get('/', function () {
 
 
 Route::prefix('/shop')->group(function () {
-    Route::post('/create')->uses(CreateShopController::class)->name('shop.create');
+    Route::post('/create')->uses(CreateController::class)->name('shop.create');
 
-    Route::get('/near-postcode')->uses(ShopsNearPostcodeController::class)->name('shops.near-postcode');
+    Route::get('/near-postcode')->uses(NearPostcodeController::class)->name('shops.near-postcode');
 });
 

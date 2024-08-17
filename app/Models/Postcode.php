@@ -47,4 +47,9 @@ class Postcode extends Model
             'longitude',
             'latitude'
         ];
+
+    public function getRouteKeyName(): string
+    {
+        return 'postcode';
+    }
 }

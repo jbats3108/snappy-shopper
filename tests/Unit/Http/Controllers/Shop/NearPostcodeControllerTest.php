@@ -10,7 +10,7 @@ use Illuminate\Testing\TestResponse;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-class ShopsNearPostcodeControllerTest extends TestCase
+class NearPostcodeControllerTest extends TestCase
 {
     use RefreshDatabase;
 
