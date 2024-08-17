@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Factories\ShopFactory;
 use DB;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
@@ -20,21 +21,22 @@ use Illuminate\Support\Carbon;
  * @property float $longitude
  * @property int $open
  * @property float $max_delivery_distance
+ * @property ?float $distance
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @method static \Database\Factories\ShopFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder|Shop newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Shop newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Shop query()
- * @method static \Illuminate\Database\Eloquent\Builder|Shop whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Shop whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Shop whereLatitude($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Shop whereLongitude($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Shop whereMaxDeliveryDistance($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Shop whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Shop whereOpen($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Shop whereSlug($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Shop whereUpdatedAt($value)
+ * @method static ShopFactory factory($count = null, $state = [])
+ * @method static Builder|Shop newModelQuery()
+ * @method static Builder|Shop newQuery()
+ * @method static Builder|Shop query()
+ * @method static Builder|Shop whereCreatedAt($value)
+ * @method static Builder|Shop whereId($value)
+ * @method static Builder|Shop whereLatitude($value)
+ * @method static Builder|Shop whereLongitude($value)
+ * @method static Builder|Shop whereMaxDeliveryDistance($value)
+ * @method static Builder|Shop whereName($value)
+ * @method static Builder|Shop whereOpen($value)
+ * @method static Builder|Shop whereSlug($value)
+ * @method static Builder|Shop whereUpdatedAt($value)
  * @method Builder distanceFrom()
  * @mixin Eloquent
  */
