@@ -24,7 +24,7 @@ class ShopFactory extends Factory
             'longitude' => $this->faker->longitude(),
             'type' => ShopType::shop,
             'open' => true,
-            'max_delivery_distance' => 10
+            'max_delivery_distance' => $this->faker->numberBetween(50, 300),
         ];
     }
 }

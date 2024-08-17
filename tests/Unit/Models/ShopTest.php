@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Tests\Unit\Models;
@@ -52,5 +53,19 @@ class ShopTest extends TestCase
         $distances = $results->pluck('distance');
 
         $distances->each(fn(float $distance) => $this->assertLessThan($searchDistance, $distance));
+    }
+
+    #[Test] public function it_finds_all_shops_that_can_deliver_to_a_given_postcode()
+    {
+        // Given
+        $this->seed();
+
+        $postcode = Postcode::first();
+
+        // When
+        $results = Shop::canDeliverToPostcode($postcode)->get();
+
+        // Then
+        $results->each(fn(Shop $shop) => $this->assertTrue($shop->max_delivery_distance >= $shop->distance));
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Models;
@@ -40,6 +41,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Shop whereUpdatedAt($value)
  * @method Builder distanceFrom(Postcode $postcode)
  * @method Builder withinDistanceFromPostcode(Postcode $postcode, float $distance)
+ * @method Builder canDeliverToPostcode(Postcode $postcode)
  * @mixin Eloquent
  */
 class Shop extends Model
@@ -56,10 +58,14 @@ class Shop extends Model
             'max_delivery_distance'
         ];
 
+    public function scopeCanDeliverToPostcode(Builder $query, Postcode $postcode)
+    {
+        return  self::distanceFrom($postcode)->havingRaw('distance <= `max_delivery_distance`');
+    }
+
     public function scopeWithinDistanceFromPostcode(Builder $query, Postcode $postcode, float $distance): Builder
     {
-        return self::distanceFrom($postcode)
-            ->having('distance', '<=', $distance);
+        return self::distanceFrom($postcode)->having('distance', '<=', $distance);
     }
 
     public function scopeDistanceFrom(Builder $query, Postcode $to): Builder
@@ -70,7 +76,7 @@ class Shop extends Model
     private static function getDistanceQuery(Postcode $from): Expression
     {
         return DB::raw(
-            "*, ( 6371 * acos( cos( radians($from->latitude) )
+            "*,( 6371 * acos( cos( radians($from->latitude) )
             * cos( radians( latitude ) ) * cos( radians( longitude )
             - radians($from->longitude) ) + sin( radians($from->latitude) )
             * sin( radians( latitude ) ) ) ) AS distance"
