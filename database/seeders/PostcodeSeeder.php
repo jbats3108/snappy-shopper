@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use DB;
 use Illuminate\Database\Seeder;
 
 class PostcodeSeeder extends Seeder
@@ -1261,7 +1262,7 @@ class PostcodeSeeder extends Seeder
         ];
 
         foreach ($postcodesToSeed as $postcode) {
-            \DB::table('postcodes')->insert($postcode);
+            DB::table('postcodes')->insert($postcode);
         }
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Barryvdh\LaravelIdeHelper\Eloquent;
+use Database\Factories\PostcodeFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
@@ -18,18 +20,18 @@ use Illuminate\Support\Carbon;
  * @property string $latitude
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @method static \Database\Factories\PostcodeFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder|Postcode newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Postcode newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Postcode query()
- * @method static \Illuminate\Database\Eloquent\Builder|Postcode whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Postcode whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Postcode whereIncode($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Postcode whereLatitude($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Postcode whereLongitude($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Postcode whereOutcode($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Postcode wherePostcode($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Postcode whereUpdatedAt($value)
+ * @method static PostcodeFactory factory($count = null, $state = [])
+ * @method static Builder|Postcode newModelQuery()
+ * @method static Builder|Postcode newQuery()
+ * @method static Builder|Postcode query()
+ * @method static Builder|Postcode whereCreatedAt($value)
+ * @method static Builder|Postcode whereId($value)
+ * @method static Builder|Postcode whereIncode($value)
+ * @method static Builder|Postcode whereLatitude($value)
+ * @method static Builder|Postcode whereLongitude($value)
+ * @method static Builder|Postcode whereOutcode($value)
+ * @method static Builder|Postcode wherePostcode($value)
+ * @method static Builder|Postcode whereUpdatedAt($value)
  * @mixin Eloquent
  */
 class Postcode extends Model

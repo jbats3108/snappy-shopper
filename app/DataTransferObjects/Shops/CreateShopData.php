@@ -6,8 +6,6 @@ namespace App\DataTransferObjects\Shops;
 
 use App\Enums\ShopType;
 use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Attributes\WithCast;
-use Spatie\LaravelData\Casts\EnumCast;
 use Spatie\LaravelData\Data;
 
 class CreateShopData extends Data

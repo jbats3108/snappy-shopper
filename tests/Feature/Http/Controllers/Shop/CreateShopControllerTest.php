@@ -219,7 +219,7 @@ class CreateShopControllerTest extends TestCase
         // Then
         $response->assertCreated();
 
-        $this->assertDatabaseHas('shops', $request  );
+        $this->assertDatabaseHas('shops', $request);
     }
 
     public function sendRequest(array $request): TestResponse
