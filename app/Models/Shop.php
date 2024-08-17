@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
+use DB;
 use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Expression;
 use Illuminate\Support\Carbon;
 
 /**
@@ -32,6 +35,7 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Eloquent\Builder|Shop whereOpen($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Shop whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Shop whereUpdatedAt($value)
+ * @method Builder distanceFrom()
  * @mixin Eloquent
  */
 class Shop extends Model
@@ -47,4 +51,20 @@ class Shop extends Model
             'type',
             'max_delivery_distance'
         ];
+
+    public function scopeDistanceFrom(Builder $query, Postcode $to): Builder
+    {
+        return $query->select(self::getDistanceQuery($to));
+    }
+
+    private static function getDistanceQuery(Postcode $from): Expression
+    {
+        return DB::raw(
+            "*, ( 6371 * acos( cos( radians($from->latitude) )
+            * cos( radians( latitude ) ) * cos( radians( longitude )
+            - radians($from->longitude) ) + sin( radians($from->latitude) )
+            * sin( radians( latitude ) ) ) ) AS distance"
+        );
+    }
 }
+
