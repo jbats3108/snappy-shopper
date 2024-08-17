@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Http\Controllers\Shops;
 
+use App\Models\Postcode;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Routing\Exceptions\UrlGenerationException;
 use PHPUnit\Framework\Attributes\Test;
@@ -10,6 +11,7 @@ use Tests\TestCase;
 class DeliveringToPostcodeControllerTest extends TestCase
 {
     use RefreshDatabase;
+
     #[Test] public function it_requires_a_postcode()
     {
         // When
@@ -33,5 +35,19 @@ class DeliveringToPostcodeControllerTest extends TestCase
 
         // Then
         $response->assertNotFound();
+    }
+
+    #[Test] public function it_returns_a_list_of_shops_that_can_deliver_to_the_provided_postcode()
+    {
+        // Given
+        $this->seed();
+
+        $postcode = Postcode::first();
+
+        // When
+        $response = $this->getJson(route('shops.delivering-to.postcode', $postcode->postcode));
+
+        // Then
+        // Assert
     }
 }
