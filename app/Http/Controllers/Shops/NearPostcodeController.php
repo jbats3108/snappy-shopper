@@ -16,6 +16,6 @@ class NearPostcodeController extends Controller
     public function __invoke(ShopsNearPostcodeData $request)
     {
         $postcode = Postcode::firstWhere('postcode', $request->postcode);
-        return response()->json(Shop::withinDistanceFromPostcode($postcode, $request->distance));
+        return response()->json(Shop::withinDistanceFromPostcode($postcode, $request->distance)->paginate());
     }
 }

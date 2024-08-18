@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Tests\Unit\Http\Controllers\Shop;
@@ -96,7 +97,7 @@ class NearPostcodeControllerTest extends TestCase
         $response->assertJsonMissingValidationErrors('postcode');
     }
 
-    #[Test] public function it_returns_a_list_of_shops_within_the_provided_distance_from_the_provided_postcode()
+    #[Test] public function it_returns_a_paginated_list_of_shops_within_the_given_distance_from_the_provided_postcode()
     {
         // Given
         $this->seed();
@@ -120,7 +121,23 @@ class NearPostcodeControllerTest extends TestCase
         // Then
         $response->assertOk();
 
-
+        $response->assertJsonStructure(
+            [
+                'current_page',
+                'data' => [],
+                'first_page_url',
+                'from',
+                'last_page',
+                'last_page_url',
+                'links' => [],
+                'next_page_url',
+                'path',
+                'per_page',
+                'prev_page_url',
+                'to',
+                'total',
+            ]
+        );
     }
 
 
