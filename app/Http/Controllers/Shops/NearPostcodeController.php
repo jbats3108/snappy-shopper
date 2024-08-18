@@ -6,7 +6,6 @@ namespace App\Http\Controllers\Shops;
 
 use App\DataTransferObjects\Shops\NearPostcodeData;
 use App\Http\Controllers\Controller;
-use App\Models\Postcode;
 use App\Models\Shop;
 
 class NearPostcodeController extends Controller
@@ -16,7 +15,6 @@ class NearPostcodeController extends Controller
      */
     public function __invoke(NearPostcodeData $request)
     {
-        $postcode = Postcode::firstWhere('postcode', $request->postcode);
-        return response()->json(Shop::withinDistanceFromPostcode($postcode, $request->distance)->paginate());
+        return response()->json(Shop::withinDistanceFromPostcode($request->postcode, $request->distance)->paginate());
     }
 }

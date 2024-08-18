@@ -47,9 +47,7 @@ class NearPostcodeControllerTest extends TestCase
         $response = $this->sendRequest($request);
 
         // Then
-        $response->assertJsonMissingValidationErrors('distance');
-
-        $response->assertJsonValidationErrors('postcode');
+        $response->assertNotFound();
     }
 
     #[Test] public function it_requires_a_distance_value()

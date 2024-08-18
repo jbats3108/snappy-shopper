@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Models;
@@ -9,6 +10,10 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use Spatie\LaravelData\Casts\Cast;
+use Spatie\LaravelData\Casts\Castable;
+use Spatie\LaravelData\Support\Creation\CreationContext;
+use Spatie\LaravelData\Support\DataProperty;
 
 /**
  *
@@ -35,7 +40,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Postcode whereUpdatedAt($value)
  * @mixin Eloquent
  */
-class Postcode extends Model
+class Postcode extends Model implements Castable
 {
     use HasFactory;
 
@@ -51,5 +56,20 @@ class Postcode extends Model
     public function getRouteKeyName(): string
     {
         return 'postcode';
+    }
+
+
+    public static function dataCastUsing(array ...$arguments): Cast
+    {
+        return new class implements Cast {
+            public function cast(
+                DataProperty $property,
+                mixed $value,
+                array $properties,
+                CreationContext $context
+            ): Postcode {
+                return Postcode::where('postcode', $value)->firstOrFail();
+            }
+        };
     }
 }

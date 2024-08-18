@@ -1,16 +1,19 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\DataTransferObjects\Shops;
 
-use Spatie\LaravelData\Attributes\Validation\Exists;
+use App\Models\Postcode;
+use Spatie\LaravelData\Attributes\WithCast;
+use Spatie\LaravelData\Attributes\WithCastable;
 use Spatie\LaravelData\Data;
 
 class NearPostcodeData extends Data
 {
     public function __construct(
-        #[Exists('postcodes', 'postcode')]
-        public readonly string $postcode,
+        #[WithCastable(Postcode::class)]
+        public readonly Postcode $postcode,
         public readonly float $distance
     ) {
     }
