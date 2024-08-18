@@ -58,7 +58,7 @@ class Shop extends Model
             'max_delivery_distance'
         ];
 
-    public function scopeCanDeliverToPostcode(Builder $query, Postcode $postcode)
+    public function scopeCanDeliverToPostcode(Builder $query, Postcode $postcode): Builder
     {
         return  self::distanceFrom($postcode)->havingRaw('distance <= `max_delivery_distance`');
     }
@@ -70,10 +70,10 @@ class Shop extends Model
 
     public function scopeDistanceFrom(Builder $query, Postcode $to): Builder
     {
-        return $query->select(self::getDistanceQuery($to));
+        return $query->select(self::distanceSelect($to));
     }
 
-    private static function getDistanceQuery(Postcode $from): Expression
+    private static function distanceSelect(Postcode $from): Expression
     {
         return DB::raw(
             "*,( 6371 * acos( cos( radians($from->latitude) )

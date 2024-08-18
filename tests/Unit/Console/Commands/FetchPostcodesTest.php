@@ -58,9 +58,6 @@ class FetchPostcodesTest extends TestCase
 
     public function callCommand(array $parameters = []): void
     {
-        $this->artisan(
-            self::COMMAND_STRING,
-            $parameters
-        );
+        $this->artisan(self::COMMAND_STRING, $parameters);
     }
 }
