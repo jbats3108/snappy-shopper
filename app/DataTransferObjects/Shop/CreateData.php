@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\DataTransferObjects\Shops;
+namespace App\DataTransferObjects\Shop;
 
 use App\Enums\ShopType;
 use Spatie\LaravelData\Attributes\MapName;
 use Spatie\LaravelData\Data;
 
-class CreateShopData extends Data
+class CreateData extends Data
 {
     public function __construct(
         public readonly string $name,

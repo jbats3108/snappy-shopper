@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace App\DataTransferObjects;
+namespace App\DataTransferObjects\Shops;
 
 use Spatie\LaravelData\Attributes\Validation\Exists;
 use Spatie\LaravelData\Data;
 
-class ShopsNearPostcodeData extends Data
+class NearPostcodeData extends Data
 {
     public function __construct(
         #[Exists('postcodes', 'postcode')]
