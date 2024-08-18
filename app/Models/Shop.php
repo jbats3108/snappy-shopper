@@ -60,7 +60,7 @@ class Shop extends Model
 
     public function scopeCanDeliverToPostcode(Builder $query, Postcode $postcode): Builder
     {
-        return  self::distanceFrom($postcode)->havingRaw('distance <= `max_delivery_distance`');
+        return self::distanceFrom($postcode)->havingRaw('distance <= `max_delivery_distance`');
     }
 
     public function scopeWithinDistanceFromPostcode(Builder $query, Postcode $postcode, float $distance): Builder

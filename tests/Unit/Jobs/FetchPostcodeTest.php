@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Tests\Unit\Jobs;
@@ -16,6 +17,7 @@ use TiMacDonald\Log\LogFake;
 class FetchPostcodeTest extends TestCase
 {
     use RefreshDatabase;
+
     #[Test] public function it_logs_and_swallows_the_error_if_the_submitted_postcode_is_not_found()
     {
         // Given

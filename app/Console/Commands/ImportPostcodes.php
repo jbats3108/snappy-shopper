@@ -15,7 +15,7 @@ class ImportPostcodes extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Imports Postcode data from a CSV file';
 
     public function handle(): void
     {

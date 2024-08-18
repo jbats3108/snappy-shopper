@@ -13,7 +13,7 @@ class FetchPostcodes extends Command
     protected $signature = 'app:fetch-all-postcodes
     {postcode* : Postcode(s) to pass in individually}';
 
-    protected $description = 'Command description';
+    protected $description = 'Calls the Postcodes.io API to retrieve and insert Postcode data';
 
     /**
      * Execute the console command.
