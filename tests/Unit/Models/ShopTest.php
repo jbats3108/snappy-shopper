@@ -14,6 +14,43 @@ class ShopTest extends TestCase
 {
     use RefreshDatabase;
 
+    #[Test] public function it_calculates_the_distance_from_a_shop_to_a_postcode()
+    {
+        // Given
+
+        /*
+         * This test uses a known location so that the calculation can be verified. The distance is returned
+         * in Kilometres. The getDistanceFromPostcode method here would not ordinarily be a public
+         * method, but has been created so that this test can exist and prove that the other queries that rely
+         * on this calculation can be trusted.
+         */
+
+        $shop = Shop::factory()->create(
+            [
+                'longitude' => -0.1749,
+                'latitude' => 50.828089,
+            ]
+        );
+
+        $postcode = Postcode::factory()->create(
+            [
+                'postcode' => 'BN1 5AG',
+                'outcode' => 'BN1',
+                'incode' => '5AG',
+                'longitude' => -0.15679,
+                'latitude' => 50.841534,
+            ]
+        );
+
+        // When
+        $shopWithDistance = $shop->getDistanceFromPostcode($postcode);
+
+        // Then
+        $distance = $shopWithDistance->distance;
+
+        $this->assertTrue($distance > 1.95 && $distance < 1.97);
+    }
+
     #[Test] public function it_finds_the_distance_from_a_postcode_for_all_shops()
     {
         // Given

@@ -73,6 +73,15 @@ class Shop extends Model
         return $query->select(self::distanceSelect($to));
     }
 
+    public function getDistanceFromPostcode(Postcode $postcode): Shop
+    {
+        $distance = self::distanceSelect($postcode);
+
+        $query = $this->newQueryWithoutRelationships()->select($distance);
+
+        return $query->get()->first();
+    }
+
     private static function distanceSelect(Postcode $from): Expression
     {
         return DB::raw(
