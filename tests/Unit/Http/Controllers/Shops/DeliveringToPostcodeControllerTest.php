@@ -5,6 +5,7 @@ namespace Tests\Unit\Http\Controllers\Shops;
 use App\Models\Postcode;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Routing\Exceptions\UrlGenerationException;
+use Illuminate\Testing\TestResponse;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
@@ -31,13 +32,13 @@ class DeliveringToPostcodeControllerTest extends TestCase
         $invalidPostcode = 'ZZ1 1ZZ'; // Ensures any real seeded postcodes will never match
 
         // When
-        $response = $this->getJson(route('shops.delivering-to.postcode', $invalidPostcode));
+        $response = $this->sendRequest($invalidPostcode);
 
         // Then
         $response->assertNotFound();
     }
 
-    #[Test] public function it_returns_a_list_of_shops_that_can_deliver_to_the_provided_postcode()
+    #[Test] public function it_returns_a_paginated_list_of_shops_that_can_deliver_to_the_provided_postcode()
     {
         // Given
         $this->seed();
@@ -45,9 +46,32 @@ class DeliveringToPostcodeControllerTest extends TestCase
         $postcode = Postcode::first();
 
         // When
-        $response = $this->getJson(route('shops.delivering-to.postcode', $postcode->postcode));
+        $response = $this->sendRequest($postcode->postcode);
 
         // Then
-        // Assert
+        $response->assertOk();
+
+        $response->assertJsonStructure(
+            [
+                'current_page',
+                'data' => [],
+                'first_page_url',
+                'from',
+                'last_page',
+                'last_page_url',
+                'links' => [],
+                'next_page_url',
+                'path',
+                'per_page',
+                'prev_page_url',
+                'to',
+                'total',
+            ]
+        );
+    }
+
+    public function sendRequest(string $postcode): TestResponse
+    {
+        return $this->getJson(route('shops.delivering-to.postcode', $postcode));
     }
 }
